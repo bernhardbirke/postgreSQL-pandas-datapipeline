@@ -1,16 +1,16 @@
 ### Backup PostgreSQL File
 
 Run the following command in the shell:
-pg_dump -U username -O w52_data -f w52_data.sql
+pg_dump -U username -O file_data -f file_data.sql
 
 or simply:
-pg_dump w52_data > w52_data.sql
+pg_dump file_data > file_data.sql
 
 This saves the file in the current directory of the shell.
 
 Then copy the file to another server and run:
 
-psql -U w52_data -d smartmeter_230327 -f w52_data.sql
+psql -U username_data -d database -f file_data.sql
 
 ### Necessary Modules
 
@@ -32,10 +32,10 @@ source "/full/path/to/project/venv/bin/activate"
 cd /full/path/to/project/
 
 #start python-file
-scrapy crawl boulderbarhbf -o boulderbar.jsonl
+python filename.py
 ```
 
-Schedule the spider in crontab using the following line in `crontab -e`:
+Schedule the python file in crontab using the following line in `crontab -e`:
 
 ```
  */10 * * * * /full/path/to/shfile/getdata.sh
