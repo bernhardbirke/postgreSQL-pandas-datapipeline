@@ -14,10 +14,21 @@ psql -U username_data -d database -f file_data.sql
 
 ### Necessary Modules
 
-psycopg2
-pip install psycopg2
+To setup a virtual Environment (venv) `cd` to your project directory and run the following commands.
+
+```
+python3 -m venv ./venv
+source ./venv/bin/activate
+```
+
+Install the following modules:
+
+```
+pip install psycopg2 or pip install psycopg2-binary (linux)
 pip install SQLAlchemy
 pip install pandas
+
+```
 
 ### Schedule the batch update
 
