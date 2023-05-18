@@ -10,7 +10,7 @@ def read_current_watt():
         conn = psycopg2.connect(**params)
         cur = conn.cursor()
         cur.execute(
-            "SELECT data_id, created_on, momentanleistung_p FROM smartmeter ORDER BY data_id DESC LIMIT 5")
+            "SELECT data_id, time, momentanleistung_p FROM smartmeter ORDER BY data_id DESC LIMIT 5")
         watt_row = cur.fetchone()
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
@@ -99,7 +99,7 @@ def create_table_smartmeter_diff():
 
 def insert_smartmeter(WirkenergieP, WirkenergieN, MomentanleistungP, MomentanleistungN, SpannungL1, SpannungL2, SpannungL3, StromL1, StromL2, StromL3, Leistungsfaktor):
     """ insert a new data row into the smartmeter table """
-    sql = """INSERT INTO smartmeter(created_on, wirkenergie_p, wirkenergie_n, momentanleistung_p, momentanleistung_n, spannung_l1, spannung_l2, spannung_l3, strom_l1, strom_l2, strom_l3, leistungsfaktor)
+    sql = """INSERT INTO smartmeter(time, wirkenergie_p, wirkenergie_n, momentanleistung_p, momentanleistung_n, spannung_l1, spannung_l2, spannung_l3, strom_l1, strom_l2, strom_l3, leistungsfaktor)
             VALUES(NOW()::TIMESTAMP, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING data_id;"""
     conn = None
     data_id = None
