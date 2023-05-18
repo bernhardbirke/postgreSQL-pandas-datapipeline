@@ -43,7 +43,7 @@ source "/full/path/to/project/venv/bin/activate"
 cd /full/path/to/project/
 
 #start python-file
-python filename.py
+python3 smartmeter_ETL.py
 ```
 
 Schedule the python file in crontab using the following line in `crontab -e`:
@@ -61,6 +61,12 @@ This crontab runs the `getdata.sh`-file every 10 minutes every day.
 Make Grafana accessible without any login required by enabling anonymous access in the configuration file. (see also: https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/grafana/#settings)
 
 ```
+#################################### Security ######################
+[security]
+
+# set to true if you want to allow browsers to render Grafana in a <frame>, <iframe>, <embed> or <object>. default is false.
+allow_embedding = true
+
 #################################### Anonymous Auth ######################
 [auth.anonymous]
 # enable anonymous access
@@ -74,10 +80,6 @@ org_role = Viewer
 
 # mask the Grafana version number for unauthenticated users
 hide_version = true
-
-# set to true if you want to allow browsers to render Grafana in a <frame>, <iframe>, <embed> or <object>. default is false.
-allow_embedding = true
-
 
 ```
 
