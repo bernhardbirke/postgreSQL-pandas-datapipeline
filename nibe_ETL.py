@@ -52,6 +52,11 @@ df_filtered["intervall"] = df_filtered["time"].diff() / np.timedelta64(1, "s")
 df_filtered["stromverbrauch"] = (
     df_filtered["intervall"] * df_filtered["momentan_verwendete_leistung"]
 )
+df_filtered["stromverbrauch_brauchwasser"] = (
+    df_filtered["intervall"]
+    * df_filtered["momentan_verwendete_leistung"]
+    * df_filtered["umschaltventil_brauchwasser"]
+)
 df_filtered = df_filtered[
     [
         "data_id",
@@ -63,6 +68,7 @@ df_filtered = df_filtered[
         "heizung_nur_verdichter_diff",
         "intervall",
         "stromverbrauch",
+        "stromverbrauch_brauchwasser",
     ]
 ]
 

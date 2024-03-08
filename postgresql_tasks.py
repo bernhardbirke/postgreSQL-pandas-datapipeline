@@ -317,7 +317,8 @@ def create_table_nibe_diff() -> None:
             brauchwasser_nur_verdichter [kWh],
             heizung_nur_verdichter [kWh],
             intervall [s],
-            stromverbrauch [Ws]
+            stromverbrauch [Ws],
+            stromverbrauch_brauchwasser [Ws]
 
     """
     command = """
@@ -331,6 +332,7 @@ def create_table_nibe_diff() -> None:
             heizung_nur_verdichter_diff FLOAT4, 
             intervall FLOAT4, 
             stromverbrauch FLOAT4,
+            stromverbrauch_brauchwasser FLOAT4,
             CONSTRAINT fk_data_id
                 FOREIGN KEY(data_id)
                     REFERENCES nibe(data_id)
@@ -437,28 +439,30 @@ if __name__ == "__main__":
     # insert_smartmeter(1234.1339491293948, 45.2, 0.023, 2.39, 230,
     #                   240.3, 222.23, 50, 51.4, 49.3, 0.56)
     # create_table_nibe()
-    """data_id = insert_nibe(
-        2.1,
-        23,
-        22,
-        5,
-        1,
-        43,
-        34.2,
-        21.2,
-        34.2,
-        20,
-        -402,
-        23,
-        1410,
-        27010,
-        340,
-        20200,
-        5230,
-        8,
-        0,
-    )
-    """
+    for i in range(0, 1000, 21):
+        brauchwasser = 1 if i % 2 == 1 else 0
+        data_id = insert_nibe(
+            2.1,
+            23,
+            22,
+            5,
+            1,
+            43,
+            34.2,
+            21.2,
+            34.2,
+            20,
+            -402 + i,
+            23,
+            1410 + i,
+            27010 + i,
+            340 + i,
+            20200 + i,
+            5230 + i,
+            8,
+            brauchwasser,
+        )
+
     # data_id = insert_fronius_gen24(84, 1734799.1200000001)
     # print(f"Data ID {data_id} added to database ")
-    create_table_nibe_diff()
+    # create_table_nibe_diff()
