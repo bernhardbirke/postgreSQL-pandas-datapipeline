@@ -56,6 +56,14 @@ To check if cron is running properly, run `grep CRON /var/log/syslog`.
 
 This crontab runs the `getdata.sh`-file every 10 minutes every day.
 
+### Postgresql Commands
+
+delete old data
+
+```
+DELETE FROM nibe WHERE time < '2024-03-08 05:22:00.0'   RETURNING *;
+```
+
 ### configure Grafana
 
 Make Grafana accessible without any login required by enabling anonymous access in the configuration file. (see also: https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/grafana/#settings)
