@@ -34,7 +34,7 @@ df = pd.read_sql("fronius_gen24", dbConnection)
 df_filtered = df[df["data_id"] >= max_data_id].copy()
 # test with a certain number of rows
 # df_filtered = df[(df["data_id"] >= 150) & (df["data_id"] <= 250)].copy()
-
+df_filtered = df_filtered.sort_values(by=["data_id"])
 # calculate differences in pac and total_energy
 df_filtered["pac_diff"] = df_filtered["pac"].diff()
 df_filtered["total_energy_diff"] = df_filtered["total_energy"].diff()
