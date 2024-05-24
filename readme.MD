@@ -17,7 +17,7 @@ psql -U username_data -d database -f file_data.sql
 To setup a virtual Environment (venv) `cd` to your project directory and run the following commands.
 
 ```
-python3 -m venv ./venv
+python -m venv ./venv
 source ./venv/bin/activate
 ```
 
@@ -43,7 +43,7 @@ source "/full/path/to/project/venv/bin/activate"
 cd /full/path/to/project/
 
 #start python-file
-python3 smartmeter_ETL.py
+python smartmeter_ETL.py
 ```
 
 Schedule the python file in crontab using the following line in `crontab -e`:
