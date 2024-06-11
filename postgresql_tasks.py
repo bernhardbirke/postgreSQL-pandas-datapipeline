@@ -434,13 +434,55 @@ def insert_nibe(
     return data_id
 
 
+
+def create_table_dect_210_diff() -> None:
+    """create table dect_210_diff in the PostgreSQL database (database specified in config.py), saves common inverter data"""
+    command = """
+        CREATE TABLE dect_210_diff (
+            data_id SERIAL PRIMARY KEY,
+            time TIMESTAMP NOT NULL,
+            power_diff FLOAT4,
+            energy_diff FLOAT4,
+            temperature_diff FLOAT4,
+            CONSTRAINT fk_data_id
+                FOREIGN KEY(data_id)
+                    REFERENCES dect_210(data_id)
+                    ON DELETE SET NULL
+                    ON UPDATE CASCADE
+        )
+        """
+
+    conn = None
+    try:
+        # read the connection parameters
+        params = config()
+        # connect to the PostgreSQL server
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        # create table one by one
+        cur.execute(command)
+        # close communication with the PostgreSQL database server
+        cur.close()
+        # commit the changes
+        conn.commit()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+
+
+
 if __name__ == "__main__":
     #  create_table_smartmeter()
     # insert_smartmeter(1234.1339491293948, 45.2, 0.023, 2.39, 230,
     #                   240.3, 222.23, 50, 51.4, 49.3, 0.56)
     # create_table_nibe()
+    """
     for i in range(0, 1000, 21):
         brauchwasser = 1 if i % 2 == 1 else 0
+        
         data_id = insert_nibe(
             2.1,
             23,
@@ -462,6 +504,8 @@ if __name__ == "__main__":
             8,
             brauchwasser,
         )
+       """
+    create_table_dect_210_diff()
 
     # data_id = insert_fronius_gen24(84, 1734799.1200000001)
     # print(f"Data ID {data_id} added to database ")
