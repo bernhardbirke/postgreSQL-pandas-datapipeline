@@ -31,7 +31,9 @@ df = pd.read_sql("dect_210", dbConnection)
 df_filtered = df[df["data_id"] >= max_data_id].copy()
 
 df_filtered = df_filtered.sort_values(by=["data_id"])
-# calculate differences in pac and total_energy
+#remove null values
+df_filtered = df_filtered[df_filtered["energy"]!=0].copy()
+# calculate differences
 df_filtered["power_diff"] = df_filtered["power"].diff()
 df_filtered["energy_diff"] = df_filtered["energy"].diff()
 df_filtered["temperature_diff"] = df_filtered["temperature"].diff()
